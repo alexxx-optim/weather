@@ -1,0 +1,4 @@
+default_city_name: Lviv
+default_country_code: UA
+api_key: be306854c8951ab7c36943603da82b4d
+api_endpoint: data/2.5/weather

@@ -1,0 +1,7 @@
+name: Current Weather
+type: module
+description: 'Get weather from Openweathermap.org'
+package: Custom
+core_version_requirement: ^8 || ^9
+
+configure: current_weather.admin_settings

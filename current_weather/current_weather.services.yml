@@ -1,0 +1,4 @@
+services:
+  current_weather.weather.apiclient:
+    class: Drupal\current_weather\Controller\ApiConnector
+    arguments: ["@config.factory"]

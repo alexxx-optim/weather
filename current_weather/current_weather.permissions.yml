@@ -1,0 +1,3 @@
+administer current_weather configuration:
+  title: 'Administer current_weather configuration'
+  restrict access: true

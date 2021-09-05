@@ -1,0 +1,4 @@
+current_weather.settings:
+  title: 'Current Weather'
+  parent: system.admin_config_services
+  route_name: current_weather.admin_settings
