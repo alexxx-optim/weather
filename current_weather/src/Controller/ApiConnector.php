@@ -84,6 +84,13 @@ class ApiConnector {
     ]);
 
     if (!empty($query_data)) {
+      $cache = \Drupal::cache();
+      $data = $cache->get($query_data);
+      if (!empty($data)) {
+        if ($query_data == $data->data['query_data']) {
+          return $data->data['response'];
+        }
+      }
       try {
         $response = $client->get($this->getDefaultEndpoint(), [
           'query' => [
@@ -92,6 +99,10 @@ class ApiConnector {
             'appid' => $this->getAppKey(),
           ],
         ]);
+        $cache->set($query_data, [
+          $query_data,
+          $response,
+        ], \Drupal::time()->getRequestTime() + (86400));
       }
       catch (RequestException $e) {
         // Handle 4xx and 5xx http responses.
