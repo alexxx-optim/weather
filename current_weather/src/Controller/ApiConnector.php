@@ -35,7 +35,7 @@ class ApiConnector {
    */
   protected function getAppKey() {
     return $this->configFactory->get('current_weather.settings')
-      ->get('api_key') ?? '';
+        ->get('api_key') ?? '';
   }
 
   /**
@@ -43,7 +43,7 @@ class ApiConnector {
    */
   public function getDefaultEndpoint() {
     return $this->configFactory->get('current_weather.settings')
-      ->get('api_endpoint') ?? '';
+        ->get('api_endpoint') ?? '';
   }
 
   /**
@@ -51,7 +51,7 @@ class ApiConnector {
    */
   public function getDefaultCity() {
     return $this->configFactory->get('current_weather.settings')
-      ->get('default_city_name') ?? '';
+        ->get('default_city_name') ?? '';
   }
 
   /**
@@ -59,7 +59,7 @@ class ApiConnector {
    */
   public function getDefaultCountry() {
     return $this->configFactory->get('current_weather.settings')
-      ->get('default_country_code') ?? '';
+        ->get('default_country_code') ?? '';
   }
 
   /**
@@ -87,8 +87,8 @@ class ApiConnector {
       $cache = \Drupal::cache();
       $data = $cache->get($query_data);
       if (!empty($data)) {
-        if ($query_data == $data->data['query_data']) {
-          return $data->data['response'];
+        if ($query_data == $data->data['0']) {
+          return $data->data['1'];
         }
       }
       try {
@@ -101,7 +101,7 @@ class ApiConnector {
         ]);
         $cache->set($query_data, [
           $query_data,
-          $response,
+          Json::decode($response->getBody()),
         ], \Drupal::time()->getRequestTime() + (86400));
       }
       catch (RequestException $e) {

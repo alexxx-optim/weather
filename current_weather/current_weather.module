@@ -4,3 +4,16 @@
  * @file
  * Primary module hooks for current_weather module.
  */
+
+/**
+ * Implements hook_theme().
+ */
+function current_weather_theme($existing, $type, $theme, $path) {
+  return [
+    'current_weather_template' => [
+      'variables' => [
+        'items' => NULL,
+      ],
+    ],
+  ];
+}

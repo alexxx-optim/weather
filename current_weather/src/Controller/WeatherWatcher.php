@@ -29,8 +29,10 @@ class WeatherWatcher {
     $items = self::createWeatherData($cat_facts);
 
     return [
-      '#markup' => $items,
+      '#theme' => 'current_weather_template',
+      '#items' => $items,
     ];
+
   }
 
   /**
@@ -48,7 +50,8 @@ class WeatherWatcher {
     }
 
     return [
-      '#markup' => $items,
+      '#theme' => 'current_weather_template',
+      '#items' => $items,
     ];
   }
 
@@ -67,29 +70,28 @@ class WeatherWatcher {
     }
 
     return [
-      '#markup' => $items,
+      '#theme' => 'current_weather_template',
+      '#items' => $items,
     ];
   }
 
   /**
    * @param $cat_facts
    *
-   * @return string
+   * @return array
    */
   public static function createWeatherData($cat_facts) {
     if (!empty($cat_facts)) {
-      $flag = '<img src="https://openweathermap.org/images/flags/' . strtolower($cat_facts['sys']['country']) . '.png">';
-      $icon = '<img src="https://openweathermap.org/img/wn/' . strtolower($cat_facts['weather'][0]['icon']) . '.png">';
-      $items = '<div class="weather-wrapper">';
-      $items .= '<h2>Weather for ' . $cat_facts['name'] . '</h2>';
-      $items .= '<div>' . $cat_facts['name'] . ' (' . $cat_facts['sys']['country'] . ' ' . $flag . ')</div>';
-      $items .= '<div>' . $cat_facts['weather'][0]['main'] . ' (' . $cat_facts['weather'][0]['description'] . ')</div>';
-      $items .= '<div>' . $icon . '</div>';
-      $items .= '<div>' . $cat_facts['main']['temp'] . 'ºC</div>';
-      $items .= '<div>' . $cat_facts['main']['feels_like'] . 'ºC</div>';
-      $items .= '<div>' . $cat_facts['main']['humidity'] . '%</div>';
-      $items .= '<div>' . $cat_facts['main']['pressure'] . 'hPa</div>';
-      $items .= '</div>';
+      $items['flag'] = '<img src="https://openweathermap.org/images/flags/' . strtolower($cat_facts['sys']['country']) . '.png">';
+      $items['icon'] = '<img src="https://openweathermap.org/img/wn/' . strtolower($cat_facts['weather'][0]['icon']) . '.png">';
+      $items['name'] = $cat_facts['name'];
+      $items['country'] = $cat_facts['sys']['country'];
+      $items['main'] = $cat_facts['weather'][0]['main'];
+      $items['description'] = $cat_facts['weather'][0]['description'];
+      $items['temp'] = $cat_facts['main']['temp'];
+      $items['feels_like'] = $cat_facts['main']['feels_like'];
+      $items['humidity'] = $cat_facts['main']['humidity'];
+      $items['pressure'] = $cat_facts['main']['pressure'];
     }
     else {
       return t('Please, input correct location for weather.');
